@@ -13,7 +13,7 @@ import (
 var links []string
 
 func randomlink(w http.ResponseWriter, req *http.Request) {
-    fmt.Fprintf(w, links[rand.Intn(len(links))])
+    http.Redirect(w, req, links[rand.Intn(len(links))], 302)
 }
 
 func headers(w http.ResponseWriter, req *http.Request) {
@@ -37,7 +37,7 @@ func main() {
     log.Println("Attempting to open randomlinks.txt")
     file, err := os.Open("randomlinks.txt")
     if err != nil {
-        fmt.Println(err)
+        log.Fatalln(err)
     }
     defer file.Close()
 
@@ -47,7 +47,7 @@ func main() {
         links = append(links, sc.Text())
     }
     if err := sc.Err(); err != nil {
-        fmt.Println(err)
+        log.Fatalln(err)
     }
     log.Println("Loaded links into RAM successfully")
 
