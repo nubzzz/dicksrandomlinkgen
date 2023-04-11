@@ -54,7 +54,7 @@ func main() {
     http.HandleFunc("/randomlink", randomlink)
     http.HandleFunc("/headers", headers)
 
-    var port = ":8090"
+    var port = "127.0.0.1:8090"
     log.Println("Listening on port", port)
     http.ListenAndServe(port, Log(http.DefaultServeMux))
 }
